@@ -10,7 +10,7 @@
 
     <groupId>com.shankyank</groupId>
     <artifactId>sortpom-config</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>0.1</version>
 
     <packaging>jar</packaging>
 
@@ -42,6 +42,13 @@
         <url>https://github.com/mrburrito/sortpom-config/issues</url>
     </issueManagement>
 
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+
     <developers>
         <developer>
             <name>Gordon Shankman</name>
@@ -57,14 +64,7 @@
 
     <profiles>
         <profile>
-            <id>release-tasks</id>
-            <activation>
-                <!-- mvn release:perform sets this to true -->
-                <property>
-                    <name>performRelease</name>
-                    <value>true</value>
-                </property>
-            </activation>
+            <id>release</id>
             <build>
                 <plugins>
                     <plugin>
@@ -80,6 +80,17 @@
                                 </goals>
                             </execution>
                         </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>1.6.3</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>
