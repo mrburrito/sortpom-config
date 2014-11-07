@@ -1,0 +1,3 @@
+This project is intended to be included as configuration for
+the sortpom-maven-plugin and provides only XML files to customize
+the sort order. There are no javadocs or sources.
